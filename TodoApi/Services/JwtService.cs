@@ -7,14 +7,9 @@ using TodoApi.Options;
 
 namespace TodoApi.Services;
 
-public class JwtTokenService : IJwtTokenService
+public class JwtTokenService(IOptions<JwtOptions> jwtOptions) : IJwtTokenService
 {
-    private readonly JwtOptions _jwtOptions;
-
-    public JwtTokenService(IOptions<JwtOptions> jwtOptions)
-    {
-        _jwtOptions = jwtOptions.Value;
-    }
+    private readonly JwtOptions _jwtOptions = jwtOptions.Value;
 
     public string GenerateToken(int userId, string email, IEnumerable<string> roles)
     {

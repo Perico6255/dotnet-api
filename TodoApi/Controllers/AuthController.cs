@@ -25,9 +25,8 @@ public class AuthController : ControllerBase
         if (user is null)
             return Unauthorized("Credenciales inválidas");
 
-        // a partir de tu modelo User / UserRole / Role
         var roles = user.Roles
-            .Select(ur => ur.Name)   // adapta al nombre real de la propiedad (Name, Nombre, etc.)
+            .Select(ur => ur.Name)   
             .ToList();
 
         var token = _jwtTokenService.GenerateToken(user.Id, user.Email, roles);

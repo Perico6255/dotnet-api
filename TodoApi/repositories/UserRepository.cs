@@ -30,6 +30,13 @@ public class UserRepository(AppDbContext context) : IUserRepository
             .Include(u => u.Roles)
             .FirstOrDefaultAsync(u => u.Id == userId);
     }
+    public Task<User?> GetByIdWithRolesAndPermisosAsync(int userId)
+    {
+        return _context.Users
+            .Include(u => u.Roles)
+                .ThenInclude(r => r.Permisos)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+    }
 
 
     public async Task<User?> GetByIdAsync(int id)

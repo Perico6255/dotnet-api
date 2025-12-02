@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TodoApi.Models;
 using TodoApi.Services;
@@ -31,6 +32,7 @@ public class TodoController(ITodoService todoService) : ControllerBase
 
     // POST api/todo
     [HttpPost]
+    [Authorize(Policy = "perm:add_ent_mod_todo")]
     public async Task<ActionResult<TodoDto>> Create([FromBody] TodoCreateDto dto)
     {
         // [ApiController] ya se encarga de validar body nulo, etc.

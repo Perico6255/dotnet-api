@@ -1,8 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 using TodoApi.Data;
 using TodoApi.Extensions;
 using TodoApi.Repositories;
+using TodoApi.Seguridad;
+using TodoApi.services;
 using TodoApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +24,13 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 // Authorization
 builder.Services.AddAuthorization();
 
+builder.Services.AddScoped<ISecurityService, SecurityService>();
+
+builder.Services.AddScoped<IAuthorizationHandler, PermissionHandler>();
+
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+
+builder.Services.AddScoped<ISecurityService, SecurityService>();
 
 
 

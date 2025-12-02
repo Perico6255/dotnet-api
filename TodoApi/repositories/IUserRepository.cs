@@ -11,5 +11,6 @@ public interface IUserRepository
     Task SaveChangesAsync();
 
     Task<Role?> GetRoleByIdAsync(int userId);
+    Task<User?> GetByIdWithRolesAndPermisosAsync(int userId);
     Task<User?> GetByIdWithRolesAsync(int userId);
 }
