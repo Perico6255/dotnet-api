@@ -28,6 +28,15 @@ public class RoleController(IRoleService roleService) : ControllerBase
 
         return Ok(role);
     }
+    [HttpGet("withpermisos/{id:int}")]
+    public async Task<ActionResult<TodoDto>> GetByIdWithRoles(int id)
+    {
+        var user = await _roleService.GetByIdWithPermisosAsync(id);
+        if (user is null)
+            return NotFound();
+
+        return Ok(user);
+    }
 
     [HttpPost]
     public async Task<ActionResult<Role>> Create([FromBody] Role role)
@@ -42,6 +51,12 @@ public class RoleController(IRoleService roleService) : ControllerBase
             // Ej: usuario no existe
             return BadRequest(new { message = ex.Message });
         }
+    }
+    [HttpPost("{roleId:int}/{permisoId:int}")]
+    public async Task<Role?> AddRole(int roleId, int permisoId)
+    {
+        await _roleService.AddPermisoAsync(roleId,permisoId);
+        return await _roleService.GetByIdAsync(roleId) ;
     }
 
 

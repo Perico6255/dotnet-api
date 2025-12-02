@@ -13,6 +13,24 @@ public class UserRepository(AppDbContext context) : IUserRepository
         return await _context.Users
             .ToListAsync();
     }
+    public Task SaveChangesAsync()
+    {
+        return _context.SaveChangesAsync();
+    }
+
+
+    public async Task<Role?> GetRoleByIdAsync(int roleId)
+    {
+        return await _context.Roles.FirstOrDefaultAsync(r => r.Id == roleId);
+    }
+
+    public Task<User?> GetByIdWithRolesAsync(int userId)
+    {
+        return _context.Users
+            .Include(u => u.Roles)
+            .FirstOrDefaultAsync(u => u.Id == userId);
+    }
+
 
     public async Task<User?> GetByIdAsync(int id)
     {
@@ -32,4 +50,5 @@ public class UserRepository(AppDbContext context) : IUserRepository
         return await _context.Users
             .FirstOrDefaultAsync(u => u.Email == email);
     }
+
 }

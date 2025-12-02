@@ -27,6 +27,15 @@ public class UserController(IUserService userService) : ControllerBase
 
         return Ok(user);
     }
+    [HttpGet("withroles/{id:int}")]
+    public async Task<ActionResult<TodoDto>> GetByIdWithRoles(int id)
+    {
+        var user = await _userService.GetByIdWithRoleAsync(id);
+        if (user is null)
+            return NotFound();
+
+        return Ok(user);
+    }
 
     [HttpPost]
     public async Task<ActionResult<User>> Create([FromBody] User user)
@@ -41,6 +50,12 @@ public class UserController(IUserService userService) : ControllerBase
             // Ej: usuario no existe
             return BadRequest(new { message = ex.Message });
         }
+    }
+    [HttpPost("{userId:int}/{roleId:int}")]
+    public async Task<User?> AddRole(int userId, int roleId)
+    {
+        await _userService.AddRoleAsync(userId,roleId);
+        return await _userService.GetByIdAsync(userId) ;
     }
 
 }

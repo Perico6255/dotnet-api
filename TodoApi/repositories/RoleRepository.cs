@@ -29,4 +29,19 @@ public class RoleRepository(AppDbContext context) : IRoleRepository
         return await _context.Roles
             .FirstOrDefaultAsync(u => u.Id == id);
     }
+    public Task SaveChangesAsync()
+    {
+        return _context.SaveChangesAsync();
+    }
+    public async Task<Permiso?> GetPermisoByIdAsync(int permisoId)
+    {
+        return await _context.Permisos.FirstOrDefaultAsync(p => p.Id ==permisoId);
+    }
+    public Task<Role?> GetByIdWithPermisosAsync(int roleId)
+    {
+        return _context.Roles
+            .Include(p => p.Permisos)
+            .FirstOrDefaultAsync(r => r.Id == roleId);
+    }
+
 }

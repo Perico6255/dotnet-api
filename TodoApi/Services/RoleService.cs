@@ -23,4 +23,20 @@ public class RoleService(IRoleRepository roleRepository) : IRoleService
     {
         return await _roleRepository.GetByIdAsync(id);
     }
+    public async Task<Role?> GetByIdWithPermisosAsync(int id)
+    {
+        return await _roleRepository.GetByIdWithPermisosAsync(id);
+    }
+    public async Task AddPermisoAsync(int roleId, int permisoId)
+    {
+        var role = await _roleRepository.GetByIdAsync(roleId) ?? throw new KeyNotFoundException("User not found");
+        var permiso = await _roleRepository.GetPermisoByIdAsync(permisoId) ?? throw new KeyNotFoundException("Role not found");
+
+        // Evitar duplicados
+        if (!role.Permisos.Any(p => p.Id == permisoId))
+        {
+            role.Permisos.Add(permiso);
+            await _roleRepository.SaveChangesAsync();
+        }
+    }
 }
