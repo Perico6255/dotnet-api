@@ -24,13 +24,27 @@ public async Task<User> CreateAsync(User user)
         return users;
     }
 
-    public Task<User?> GetByIdAsync(int id)
+    public async Task<User?> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _userRepository.GetByIdAsync(id);
     }
 
     public Task<User?> UpdateAsync(int id, UserDto dto)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<User?> ValidateUserAsync(string email, string plainPassword)
+    {
+        var user = await _userRepository.GetByEmailAsync(email);
+
+        if (user is null)
+            return null;
+
+        var isPasswordValid = user.Password == plainPassword; // SOLO DEMO
+        if (!isPasswordValid)
+            return null;
+
+        return user;
     }
 }

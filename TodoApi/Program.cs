@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using TodoApi.Data;
+using TodoApi.Extensions;
 using TodoApi.Repositories;
 using TodoApi.Services;
 
@@ -14,11 +15,20 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 
 
+// JWT
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
+// Authorization
+builder.Services.AddAuthorization();
+
+
 
 
 // Repos
 builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPermisoRepository, PermisoRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 
 // Permitir OpenAPI/Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -28,6 +38,8 @@ builder.Services.AddSwaggerGen();
 // Services
 builder.Services.AddScoped<ITodoService, TodoService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPermisoService, PermisoService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 
 
 var app = builder.Build();

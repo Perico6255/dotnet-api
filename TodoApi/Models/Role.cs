@@ -1,6 +1,10 @@
+
 namespace TodoApi.Models;
-public enum Role
+
+public class Role
 {
-    User = 0,
-    Admin = 1,
+    public int Id { get; set; }
+    public String Name { get; set; } = string.Empty;
+    public ICollection<Permiso> Permisos { get; set; } = new List<Permiso>();
+
 }

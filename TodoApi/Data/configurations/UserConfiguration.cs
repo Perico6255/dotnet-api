@@ -12,13 +12,28 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasKey(u => u.Id);
 
-        builder.Property(u => u.UserName)
+        builder.Property(u => u.Password)
                .IsRequired()
                .HasMaxLength(100);
 
-        builder.Property(u => u.Email)
+        builder.Property(u => u.Nombre)
                .IsRequired()
-               .HasMaxLength(200);
+               .HasMaxLength(100);
 
+        builder.Property(u => u.Apellido1)
+               .IsRequired()
+               .HasMaxLength(100);
+
+        builder.Property(u => u.Apellido2)
+                .IsRequired()
+                .HasMaxLength(100);
+
+        builder.Property(u => u.Email)
+                .IsRequired()
+                .HasMaxLength(200);
+
+        builder.HasMany(u => u.Roles)
+                .WithMany()                 
+                .UsingEntity(j => j.ToTable("UserRoles"));
     }
 }

@@ -141,3 +141,4 @@
 /home/perico/Code/dotNet/proyecto/TodoApi/obj/Debug/net8.0/TodoApi.pdb
 /home/perico/Code/dotNet/proyecto/TodoApi/obj/Debug/net8.0/TodoApi.genruntimeconfig.cache
 /home/perico/Code/dotNet/proyecto/TodoApi/obj/Debug/net8.0/ref/TodoApi.dll
+/home/perico/Code/dotNet/proyecto/TodoApi/obj/Debug/net8.0/TodoApi.sourcelink.json
