@@ -15,7 +15,7 @@ public class PermissionHandler(ISecurityService securityService) : Authorization
     {
         // Sacar userId del sub del JWT
         var userIdClaim = context.User.FindFirst(JwtRegisteredClaimNames.Sub)
-                        ?? context.User.FindFirst(ClaimTypes.NameIdentifier);
+                        ?? throw new Exception("User not found in jwt");
 
         if (userIdClaim == null)
             return;

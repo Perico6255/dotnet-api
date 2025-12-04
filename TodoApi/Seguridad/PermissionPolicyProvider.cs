@@ -7,7 +7,7 @@ public class PermissionPolicyProvider(IOptions<AuthorizationOptions> options) : 
 {
     private const string PREFIX = "perm:";
 
-    private readonly DefaultAuthorizationPolicyProvider _fallback = new DefaultAuthorizationPolicyProvider(options);
+    private readonly DefaultAuthorizationPolicyProvider _fallback = new(options);
 
     public Task<AuthorizationPolicy> GetDefaultPolicyAsync()
         => _fallback.GetDefaultPolicyAsync();

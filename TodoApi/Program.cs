@@ -25,11 +25,8 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<ISecurityService, SecurityService>();
-
 builder.Services.AddScoped<IAuthorizationHandler, PermissionHandler>();
-
 builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-
 builder.Services.AddScoped<ISecurityService, SecurityService>();
 
 

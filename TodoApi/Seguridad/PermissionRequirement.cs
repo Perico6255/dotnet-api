@@ -1,12 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 
 namespace TodoApi.Seguridad;
-public class PermissionRequirement : IAuthorizationRequirement
+public class PermissionRequirement(string permissionKey) : IAuthorizationRequirement
 {
-    public string PermissionKey { get; }
-
-    public PermissionRequirement(string permissionKey)
-    {
-        PermissionKey = permissionKey;  // ej: "add_ent_user"
-    }
+    public string PermissionKey { get; } = permissionKey;  // ej: "add_ent_user"
 }
